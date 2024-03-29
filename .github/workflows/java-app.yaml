@@ -1,0 +1,24 @@
+name: Java-app-cicd
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  my_job:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: checkout Git repository
+      uses: actions/checkout@v2
+
+    - name: Install Java and Maven
+      uses: actions/setup-java@v2
+      with:
+          java-version: '11'
+          distribution: 'adopt'
+          cache: maven
+
+    - name: Build the Project
+      run: mvn clean install 
