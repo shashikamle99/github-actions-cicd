@@ -27,10 +27,6 @@ jobs:
       run: |
         echo ${{ github.workspace }}
         ls -lrth
-        ls -lrth /target
-
-      
-
 
     - name: Upload target folder
       uses: actions/upload-artifact@v4
@@ -40,9 +36,12 @@ jobs:
           ${{ github.workspace }}/**/*.war
 
 
-  # my_job_2:
-  #   runs-on: ubuntu-22.04
+  my_job_2:
+    runs-on: ubuntu-22.04
 
-  #   steps:
-  #   - name: download artifacttory
-  #     uses        
+    steps:
+    - name: dowload artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: hello-world
+        path: target    
