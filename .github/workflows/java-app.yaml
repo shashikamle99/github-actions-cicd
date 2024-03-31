@@ -24,7 +24,12 @@ jobs:
       run: mvn clean package
 
     - name: check workspace
-      run: echo ${{ github.workspace }}
+      run: |
+        echo ${{ github.workspace }}
+        ls ltr
+        ls ltr /target
+
+      
 
 
     - name: Upload target folder
@@ -34,7 +39,7 @@ jobs:
         path: |
           ${{ github.workspace }}/**/*.war
 
-          
+
   # my_job_2:
   #   runs-on: ubuntu-22.04
 
