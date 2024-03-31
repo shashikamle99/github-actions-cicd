@@ -56,5 +56,11 @@ jobs:
     - name: dowload artifact
       uses: actions/download-artifact@v4
 
+    - name: check workspace
+      run: |
+        echo ${{ github.workspace }}
+        ls -lrth
+
+
     - name: deploy application
       run: docker image build -t my-app .
