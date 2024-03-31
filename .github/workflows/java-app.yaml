@@ -46,3 +46,15 @@ jobs:
       # with:
       #   name: hello-world
       #   path: ${{ github.workspace }}/**/*.war   
+  
+  my_job_3:
+    runs-on: ubuntu-22.04
+    needs: [ my_job_1, my_job_2]
+
+    steps:
+
+    - name: dowload artifact
+      uses: actions/download-artifact@v4
+      
+    - name: deploy application
+      run: docker build -t my-app .
