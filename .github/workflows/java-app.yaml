@@ -26,8 +26,8 @@ jobs:
     - name: check workspace
       run: |
         echo ${{ github.workspace }}
-        ls ltr
-        ls ltr /target
+        ls lrth
+        ls lrth /target
 
       
 
