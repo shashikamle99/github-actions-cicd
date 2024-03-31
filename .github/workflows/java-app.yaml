@@ -55,6 +55,6 @@ jobs:
 
     - name: dowload artifact
       uses: actions/download-artifact@v4
-      
+
     - name: deploy application
-      run: docker build -t my-app .
+      run: docker image build -t my-app .
