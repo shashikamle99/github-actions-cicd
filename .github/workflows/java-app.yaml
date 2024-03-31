@@ -71,14 +71,14 @@ jobs:
     - name: deploy application
       run: docker image build -t my-app .
 
-    # - name: Login to Docker Hub
-    #   uses: docker/login-action@v3
-    #     with:
-    #       username: ${{ secrets.DOCKERHUB_USERNAME }}
-    #       password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    # - name: docker image tag 
-    #   run: docker image tag my-app:latest ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
+    - name: docker image tag 
+      run: docker image tag my-app:latest ${{ secrets.DOCKERHUB_USERNAME }}/my-java:latest
 
-    # - name: docker image push
-    #   run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
+    - name: docker image push
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-java:latest
