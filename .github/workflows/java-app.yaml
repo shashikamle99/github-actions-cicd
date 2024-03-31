@@ -28,7 +28,7 @@ jobs:
       with:
         name: hello-world/1.0
         path: |
-          ${{ github.workspace }}/*.war
+          ${{ github.workspace }}/**/*.war
   # my_job_2:
   #   runs-on: ubuntu-22.04
 
