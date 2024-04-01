@@ -10,7 +10,7 @@ on:
 
 env:
   DOCKERHUB_USERNAME: shashikamle99
-  DOCKER_IMAGE: java-hello-app
+  DOCKER_IMAGE: 'java-app'
 
 jobs:
   build_package:
