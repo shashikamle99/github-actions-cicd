@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubutu
+    runs-on: ubuntu-22.04
     steps: 
     - name: checkout the code
       uses: actions/checkout@v4.1.2
