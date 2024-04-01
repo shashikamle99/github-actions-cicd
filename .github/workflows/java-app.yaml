@@ -72,6 +72,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v5
       with:
+        context: .
         push: true
         tags: ${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:${{github.run_number}}   
 
