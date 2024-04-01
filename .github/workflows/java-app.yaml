@@ -19,7 +19,7 @@ jobs:
 
     - name: check the workspace
       run: |
-      echo ${{ github.workspace }}
-      ls -la  ${{ github.workspace }}
+        echo ${{ github.workspace }}
+        ls -la  ${{ github.workspace }}
 
 
