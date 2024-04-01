@@ -8,14 +8,17 @@ on:
       - main
   workflow_disptach:   
 
+
 jobs:
-  build:
+  build_job:
     runs-on: ubuntu-22.04
-    steps: 
-    - name: checkout the code
-      uses: actions/checkout@v4.1.2
-   - name: check the workspace
-     run: |
+
+    steps:
+    - name: checkout Git repository
+      uses: actions/checkout@v4
+
+    - name: check the workspace
+      run: |
       echo ${{ github.workspace }}
       ls -la  ${{ github.workspace }}
 
