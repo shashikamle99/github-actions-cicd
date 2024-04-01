@@ -70,10 +70,10 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: build image
-      run: docker image build -t ${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest .
+      run: docker image build -t ${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:${{github.run_number}} .
 
     - name: push image
-      run: docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest  
+      run: docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:${{github.run_number}} 
 
 
       
