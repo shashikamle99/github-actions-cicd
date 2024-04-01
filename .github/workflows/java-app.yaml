@@ -8,6 +8,9 @@ on:
     - main
   workflow_dispatch:
 
+env:
+  DOCKERHUB_USERNAME: shashikamle99
+  DOCKER_IMAGE: java-hello-app
 
 jobs:
   build_package:
@@ -57,3 +60,17 @@ jobs:
     - name: check artifact in workspace
       run: ls -la  ${{ github.workspace }}/target    
     
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ env.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: build image
+      run: docker image build -t ${{ env.DOCKERHUB_USERNAME }}/${{ DOCKER_IMAGE}}:latest .
+
+    - name: push image
+      run: docker push ${{ env.DOCKERHUB_USERNAME }}/${{ DOCKER_IMAGE}}:latest  
+
+
+      
