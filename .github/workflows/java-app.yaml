@@ -1,0 +1,22 @@
+name: Java app CI/CD
+
+run-name: ${{ github.actor }} is building java applications
+
+on:
+  push:
+    branches:
+      - main
+  workflow_disptach:   
+
+jobs:
+  build:
+    runs-on: ubutu
+    steps: 
+    - name: checkout the code
+      uses: actions/checkout@v4.1.2
+   - name: check the workspace
+     run: |
+      echo ${{ github.workspace }}
+      ls -la  ${{ github.workspace }}
+
+
