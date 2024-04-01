@@ -1,57 +1,38 @@
-name: Java app CI/CD
-
-run-name: ${{ github.actor }} is building java applications
+name: Build
 
 on:
   push:
     branches:
-    - main
-  workflow_dispatch:
+      - main
 
-env:
-  DOCKERHUB_USERNAME: shashikamle99
-  DOCKER_IMAGE: java-app
 
 jobs:
-  build_package:
-    runs-on: ubuntu-22.04
-
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions: read-all
     steps:
-    - name: checkout Git repository
-      uses: actions/checkout@v4
-
-    - name: select specific java package
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'adopt'
-        java-version: '11'
-
-    - name: check version java and maven
-      run: |
-        java -version 
-        mvn --version
-
-    - name: build java package
-      run: mvn clean package
-
-    - name: check artifact
-      run: ls -la  ${{ github.workspace }}/target
-
-    # - name: SonarQube Scan
-    #   uses: sonarsource/sonarqube-scan-action@master
-    #   with:
-    #     projectBaseDir: .
-    #     args: >
-    #       -Dsonar.organization=java_project
-    #       -Dsonar.projectKey=java_project
-    #   env:
-    #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
-    - name: Build and analyze
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=java_project -Dsonar.projectName='java_project'
-
-      
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      - name: Cache SonarQube packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=java_project -Dsonar.projectName='java_project'
