@@ -10,18 +10,14 @@ on:
 
 
 jobs:
-  build_job:
+  build_package:
     runs-on: ubuntu-22.04
 
     steps:
     - name: checkout Git repository
       uses: actions/checkout@v4
 
-    - name: java java-version
-      run: |
-        echo ${{ github.workspace }}
-        ls -la  ${{ github.workspace }}
-    - name: build java package
+    - name: select specific java package
       uses: actions/setup-java@v4
       with:
         distribution: 'adopt'
@@ -34,8 +30,29 @@ jobs:
 
     - name: build java package
       run: mvn clean package
-      
+
     - name: check artifact
       run: ls -la  ${{ github.workspace }}/target
 
+# Upload artifacts
+    
+    - name: upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: java-app
+        path: ${{ github.workspace }}/target/*.jar
 
+  
+  build_docker_image:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: java-app
+        path: ${{ github.workspace }}/target
+
+    - name: check artifact in workspace
+      run: ls -la  ${{ github.workspace }}/target    
+    
