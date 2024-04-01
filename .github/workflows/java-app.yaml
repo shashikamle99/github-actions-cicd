@@ -17,9 +17,25 @@ jobs:
     - name: checkout Git repository
       uses: actions/checkout@v4
 
-    - name: check the workspace
+    - name: java java-version
       run: |
         echo ${{ github.workspace }}
         ls -la  ${{ github.workspace }}
+    - name: build java package
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+
+    - name: check version java and maven
+      run: |
+        java -version 
+        mvn --version
+
+    - name: build java package
+      run: mvn clean package
+      
+    - name: check artifact
+      run: ls -la  ${{ github.workspace }}/target
 
 
