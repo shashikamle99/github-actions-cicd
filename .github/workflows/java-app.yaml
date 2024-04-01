@@ -52,7 +52,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: java-app
-        path: ${{ github.workspace }}/target
+        path: target
 
     - name: check artifact in workspace
       run: ls -la  ${{ github.workspace }}/target    
