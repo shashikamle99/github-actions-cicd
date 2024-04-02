@@ -22,7 +22,9 @@ jobs:
       with:
         projectBaseDir: .
         args: >
-          -Dsonar.projectKey=hello-project
+          -Dsonar.projectKey=hello-project 
+          -Dsonar.host.url=http://13.57.25.121:9000 
+          -Dsonar.login=sqp_f7346d32fe5e435a735899773d765f258619e743
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
