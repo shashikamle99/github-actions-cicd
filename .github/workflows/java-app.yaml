@@ -17,17 +17,24 @@ jobs:
         java-version: '11'
     - name: Build with Maven
       run: mvn clean install -f pom.xml
-    - name: SonarQube Scan
-      uses: sonarsource/sonarqube-scan-action@master
-      with:
-        projectBaseDir: .
-        args: >
-          -Dsonar.projectKey=hello-project 
-          -Dsonar.host.url=http://13.57.25.121:9000 
-          -Dsonar.login=sqp_f7346d32fe5e435a735899773d765f258619e743
+
+    - name: sonar check scan
+      run:  run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=hello-project
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}   
+
+        
+    # - name: SonarQube Scan
+    #   uses: sonarsource/sonarqube-scan-action@master
+    #   with:
+    #     projectBaseDir: .
+    #     args: >
+    #       -Dsonar.organization=my-org
+    #       -Dsonar.projectKey=hello-project
+    #   env:
+    #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
     # - name: sonar scan
     #   run: |
@@ -35,3 +42,5 @@ jobs:
     #     -Dsonar.projectKey=hello-project \
     #     -Dsonar.host.url=http://13.57.25.121:9000 \
     #     -Dsonar.login=sqp_f7346d32fe5e435a735899773d765f258619e743
+
+      
