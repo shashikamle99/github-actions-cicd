@@ -19,12 +19,12 @@ jobs:
       run: mvn clean install -f pom.xml
 
     - name: sonar check scan
-      run:  run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=hello-project
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=hello-project
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}   
 
-        
+
     # - name: SonarQube Scan
     #   uses: sonarsource/sonarqube-scan-action@master
     #   with:
